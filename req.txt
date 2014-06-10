@@ -5,3 +5,4 @@ Flask-Login
 WTForms
 ipython
 pdbpp
+Flask-Script
