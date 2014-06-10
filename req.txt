@@ -1,0 +1,7 @@
+Flask
+SQLAlchemy
+Flask-RESTful
+Flask-Login
+WTForms
+ipython
+pdbpp
