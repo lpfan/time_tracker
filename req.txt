@@ -6,3 +6,4 @@ WTForms
 ipython
 pdbpp
 Flask-Script
+Flask-SQLAlchemy
