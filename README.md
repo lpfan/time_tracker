@@ -15,4 +15,5 @@ export PYTHONPATH
 `source env/bin/activate`
 
 І от, коли нове "віртуальне оточення" створено та активовано можна поставити усі необхідні пакети командою:
+`export PATH=$PATH:/usr/local/mysql/bin` - якщо у вас мікісь (OS X)
 `pip install -r req.txt`
