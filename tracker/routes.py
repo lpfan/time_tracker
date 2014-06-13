@@ -1,6 +1,9 @@
-import views
+from tracker import app
+from shared_lib.tools import register_routes
 
-from tracker import api
- 
 
-api.add_resource(views.IndexView, '/home')
+routes = (
+    ('/', views.IndexView, 'index_view'),
+)
+
+register_routes(routes, app)

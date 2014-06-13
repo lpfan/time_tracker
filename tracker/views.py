@@ -1,6 +1,8 @@
-from flask.ext import restful
+from flask.views import MethodView
+from flask import render_template
 
 
-class IndexView(restful.Resource):
+class IndexView(MethodView):
+
     def get(self):
-        return " bhjvruerier "
+        return render_template('index.html')

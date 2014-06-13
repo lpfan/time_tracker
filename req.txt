@@ -7,3 +7,6 @@ ipython
 pdbpp
 Flask-Script
 Flask-SQLAlchemy
+mysql_python
+Flask-Kvsession
+alembic
