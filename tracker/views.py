@@ -10,4 +10,4 @@ class IndexView(MethodView):
 
 class AboutPage(MethodView):
     def get(self):
-        return "Hard Code"
+        return render_template('about.html')
