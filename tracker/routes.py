@@ -1,4 +1,6 @@
+import views
+
 from tracker import api
-from views import *
+ 
 
-
+api.add_resource(views.IndexView, '/home')
