@@ -4,7 +4,7 @@
     <title>{%if title%}{{title}}{%else%}Basic title{%endif%}</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}"/>
-    <script src="{{url_for('static', filename='js/angular.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js_lib/angular.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/controller.js')}}"></script>
 </head>
 <body>
@@ -13,7 +13,7 @@
 
         {%endblock%}
     </div>
-    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js_lib/bootstrap.min.js')}}"></script>
 </body>
 </html>
 
