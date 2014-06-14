@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html" ng-app="ttApp">
 <head>
     <title>{%if title%}{{title}}{%else%}Basic title{%endif%}</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}"/>
     <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}"/>
+    <script src="{{url_for('static', filename='js_lib/angular.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/controller.js')}}"></script>
 </head>
 <body>
     <div class="container">
@@ -11,7 +13,7 @@
 
         {%endblock%}
     </div>
-    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js_lib/bootstrap.min.js')}}"></script>
 </body>
 </html>
 
