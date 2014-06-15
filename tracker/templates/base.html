@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html" ng-app="ttApp">
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>{%if title%}{{title}}{%else%}Basic title{%endif%}</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}"/>
     <script src="{{url_for('static', filename='js_lib/angular.min.js')}}"></script>
-    <script src="{{url_for('static', filename='js/controller.js')}}"></script>
+    <script src="{{url_for('static', filename='js_lib/angular-route.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/app.js')}}"></script>
+    <script src="{{url_for('static', filename='js/controllers.js')}}"></script>
 </head>
 <body>
     <div class="container">
@@ -13,7 +15,11 @@
 
         {%endblock%}
     </div>
-    <script src="{{url_for('static', filename='js_lib/bootstrap.min.js')}}"></script>
+    <div ng-app="ttApp">
+        <div ng-view></div>
+    </div>
+    <!-- <script src="{{url_for('static',
+filename='js_lib/bootstrap.min.js')}}"></script>-->
 </body>
 </html>
 
