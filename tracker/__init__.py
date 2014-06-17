@@ -13,3 +13,4 @@ store = KVDBStore(db.engine, db.metadata, 'sessions')
 KVSessionExtension(store, app)
 
 import routes
+
