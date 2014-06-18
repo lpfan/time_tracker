@@ -18,6 +18,11 @@ class AboutPage(MethodView):
         return render_template('about.html')
 
 
+class RegisterView(MethodView):
+
+    def get(self):
+        return render_template('index.html')
+
 @login_manager.user_loader
 def load_user(id):
     return User.objects.get(int(id))
