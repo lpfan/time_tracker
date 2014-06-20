@@ -14,6 +14,7 @@ class User(db.Model):
     is_active = db.Column(db.Boolean, default=False)
     avatar = db.Column(db.String(200))
     email = db.Column(db.String(200))
+    password = db.Column(db.String(200))
 
     @property
     def objects(self):

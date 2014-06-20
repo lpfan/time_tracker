@@ -9,7 +9,7 @@ ttApp.config(['$routeProvider',
         function($routeProvider){
             $routeProvider.
                 when('/register', {
-                    templateUrl: '../static/js/register.html',
+                    templateUrl: '../templates/partials/register.html',
                     controller: 'RegisterCtrl'
                 })
         }]);
