@@ -1,21 +1,9 @@
-{%extends "base.html"%}
+{% extends "base.html" %}
 
 {%block content%}
-    <div class="page-header">
-        <h1>Welcome to our tracking system <small>don't waste your time</small></h1>
-    </div>
 
-    <div class="row">
-        <div class="col-md-4">
-            left sidebar
-        </div>
+<div class="container-fluid">
+    <div ng-view></div>
+</div>
 
-        <div class="col-md-4">
-            main content
-        </div>
-
-        <div class="col-md-4">
-            right sidebar
-        </div>
-    </div>
 {%endblock%}
