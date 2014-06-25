@@ -2,7 +2,8 @@
 
 var ttApp = angular.module('ttApp', [
     'ngRoute',
-    'ttControllers'
+    'ttControllers',
+    'ttDirectivies'
 ]);
 
 ttApp.config(['$routeProvider',

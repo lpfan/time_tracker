@@ -1,6 +1,8 @@
 from sqlalchemy import exc
 
 from tracker import db
+from tracker.shared_lib import patterns
+from tracker.shared_lib import errors
 
 
 class BaseManager(object):
@@ -13,7 +15,7 @@ class BaseManager(object):
         self.session.commit()
 
     def revert(self):
-        self.session.rallback()
+        self.session.rollback()
 
     def safe_execute(self, method=None, *args, **kwargs):
         on_success = self.store
@@ -25,7 +27,19 @@ class BaseManager(object):
                 on_success()
                 return res
             on_success()
+        except exc.IntegrityError as err:
+            on_failure()
+            match = patterns.SA_UNIQ_PATTERN.search(err.orig.args[1])
+
+            if match is not None:
+                raise errors.RecordExists(
+                    match.group('field_name'),
+                    match.group('value'),
+                    err.message
+                )
+
         except exc.SQLAlchemyError as err:
+            on_failure()
             print err
 
     def get(self, id):
