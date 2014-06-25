@@ -23,3 +23,9 @@ ttControllers.controller('RegisterCtrl',['$scope', '$http',
 
         }
     }]);
+
+ttControllers.controller('MainpageCtrl', ['$scope', 
+    function($scope){
+        
+    }
+])

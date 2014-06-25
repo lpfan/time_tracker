@@ -12,5 +12,9 @@ ttApp.config(['$routeProvider',
                 when('/register', {
                     templateUrl: '../templates/partials/register.html',
                     controller: 'RegisterCtrl'
+                }).
+                when('/', {
+                    templateUrl: '../templates/partials/main_page.html',
+                    controller: 'MainpageCtrl'
                 })
         }]);

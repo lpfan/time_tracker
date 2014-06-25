@@ -2,11 +2,11 @@
 <form name="form" class="form-horizontal" role="form" novalidate>
   <div class="form-group">
     <label for="username" class="col-sm-2 control-label">username</label>
-    <div class="col-sm-4">
+    <div class="col-sm-6">
       <input class="form-control" id="username" placeholder="username"
       ng-model="user.username" required>
         <div class="error">
-            <p class="text-error"> 
+            <p class="text-danger"> 
                 {{usernameErrorMsg}}
             </p>
         </div>
@@ -14,7 +14,7 @@
   </div>
   <div class="form-group">
     <label for="email" class="col-sm-2 control-label">Email</label>
-    <div class="col-sm-4">
+    <div class="col-sm-6">
       <input type="email" class="form-control" id="email" placeholder="Email"
       ng-model="user.email" required>
         <div class="error" ng-show="form.email.$dirty && form.email.$invalid">
