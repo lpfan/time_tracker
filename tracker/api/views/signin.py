@@ -23,5 +23,5 @@ class SignInView(BaseResource):
     def post(self, valid_data):
         username = valid_data['username']
         password = valid_data['password']
-        token = User().authorize(username, password)
+        token = User.authorize(username, password)
         return marshal({'token':token, 'status':'success'},resource_fields)
