@@ -1,4 +1,39 @@
-<form name="signInForm">
+{%raw%}
+<form name="signInForm" class="form-horizontal" role="form" novalidate>
+  <div class="form-group">
+    <label for="username" class="col-sm-2 control-label">username</label>
+    <div class="col-sm-6">
+      <input class="form-control" id="username" placeholder="username"
+      ng-model="user.username" required>
+        <div class="error" ng-show="signInForm.username.$dirty &&
+            signInForm.password.$error">
+        </div>
+        <small class="error"
+            ng-show="signInForm.username.$error.required">
+            Username is required
+        </small>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-6">
+      <input class="form-control" id="password"
+      ng-model="user.password" required>
+        <div class="error" ng-show="form.password.$dirty && form.password.$invalid">
+            <small class="error"
+                ng-show="form.password.$error.required">
+                Password is required
+            </small>
+        </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button class="btn btn-success" ng-click="submitForm(signInForm)"
+              ng-disabled="signInForm.$invalid || isUnchanged(user)">SignIn</button>
+    </div>
+  </div>
 
 
 </form>
+{%endraw%}

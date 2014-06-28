@@ -1,6 +1,17 @@
+from sqlalchemy.orm import exc
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 from tracker import db
+from tracker import bcrypt
+from tracker import app
 
 from shared_lib import db_managers
+from shared_lib import errors
+
+
+def generate_token(user_id, expiration = 600):
+    s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
+    return s.dumps({'id':user_id})
 
 
 class User(db.Model):
@@ -20,7 +31,39 @@ class User(db.Model):
     def objects(self):
         return db_managers.UserManager(self)
 
-    # Flask-Login integration
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = Serializer(app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except SignatureExpired:
+            return None # valid token, but expired
+        except BadSignature:
+            return None # invalid token
+        user = self.objects.get(data['id'])
+        return user
+
+    @classmethod
+    def authorize(cls, username, password):
+        q = db.session.query(cls).filter(cls.username == username)
+        try:
+            user = q.one()
+            if bcrypt.check_password_hash(user.password, password):
+                token = generate_token(user.id)
+                return token
+            else:
+                raise errors.UserNotAuthorized(
+                    username,
+                    'Wrong password'
+                )
+        except exc.NoResultFound as error:
+            raise errors.UserNotFound(
+                username,
+                error.message
+            )
+
+    # Flask-Login interation
     def is_authenticated(self):
         return True
 

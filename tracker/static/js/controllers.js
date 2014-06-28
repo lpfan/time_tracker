@@ -30,8 +30,29 @@ ttControllers.controller('MainpageCtrl', ['$scope',
     }
 ])
 
-ttControllers.controller('SignInCtrl', ['$scope', '$http',
-        function($scope, $http){
-        
-        }
-    ])
+ttControllers.controller('SignInCtrl', ['$scope', '$http', '$location',  
+        function($scope, $http, $location){
+            $scope.user = {};
+            $scope.submitForm = function(form){
+                $http(
+                    {
+                        method: "POST",
+                        url: '/api/signin',
+                        data: JSON.stringify($scope.user),
+                        headers: {'Content-Type': 'application/json'}
+                    }
+                ).
+                success(function(data, status, headers, config){
+                    if (data.status === "unsuccess"){
+                        console.log('error');
+                        return;
+                    }
+                    $http.defaults.headers.common['Authentication'] = data.token;
+                    $location.path('/user_dashboard');
+                });
+            }
+        }]);
+
+ttControllers.controller('DashboardCtrl', ['$scope', function($scope){
+
+}]);
