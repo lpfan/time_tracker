@@ -17,3 +17,9 @@ export PYTHONPATH
 І от, коли нове "віртуальне оточення" створено та активовано можна поставити усі необхідні пакети командою:
 `export PATH=$PATH:/usr/local/mysql/bin` - якщо у вас мікісь (OS X)
 `pip install -r req.txt`
+
+Налаштування бази даних для проекту:
+```code
+CREATE DATABASE time_tracker CHARACTER SET 'utf8';
+GRANT ALL PRIVILEGES ON time_tracker.* To 'tracker'@'hostname' IDENTIFIED BY '123456';
+```
