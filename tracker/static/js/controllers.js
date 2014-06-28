@@ -29,3 +29,9 @@ ttControllers.controller('MainpageCtrl', ['$scope',
         
     }
 ])
+
+ttControllers.controller('SignInCtrl', ['$scope', '$http',
+        function($scope, $http){
+        
+        }
+    ])
