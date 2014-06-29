@@ -1,4 +1,5 @@
 from flask.ext.restful import fields, marshal
+from flask.ext.login import login_user
 
 from base import BaseResource
 from tracker.shared_lib.decorators import validate_input
@@ -23,5 +24,6 @@ class SignInView(BaseResource):
     def post(self, valid_data):
         username = valid_data['username']
         password = valid_data['password']
-        token = User.authorize(username, password)
+        user, token = User.authorize(username, password)
+        login_user(user)
         return marshal({'token':token, 'status':'success'},resource_fields)

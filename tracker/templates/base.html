@@ -19,11 +19,14 @@
                     tT
                 </a>
             </div>
-            
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="/#/register">Register</a></li>
-                <li><a href="/#/signin">Sign in</a></li>
+                {%if current_user.is_anonymous()%}
+                    <li><a href="/#/register">Register</a></li>
+                    <li><a href="/#/signin">Sign in</a></li>
+                {%else%}
+                    <li><a href="{{url_for('logout')}}" title="">logout</a></li>
+                {%endif%}
             </ul>
         </div>
     </nav>

@@ -20,9 +20,5 @@ ttApp.config(['$routeProvider',
                 when('/', {
                     templateUrl: '../templates/partials/main_page.html',
                     controller: 'MainpageCtrl'
-                }).
-                when('/user_dashboard', {
-                    templateUrl: '../template/partials/user_dashboard.html',
-                    controller: 'DashboardCtrl'
                 })
         }]);

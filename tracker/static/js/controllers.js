@@ -30,8 +30,8 @@ ttControllers.controller('MainpageCtrl', ['$scope',
     }
 ])
 
-ttControllers.controller('SignInCtrl', ['$scope', '$http', '$location',  
-        function($scope, $http, $location){
+ttControllers.controller('SignInCtrl', ['$scope', '$http', '$window',  
+        function($scope, $http, $window){
             $scope.user = {};
             $scope.submitForm = function(form){
                 $http(
@@ -47,8 +47,8 @@ ttControllers.controller('SignInCtrl', ['$scope', '$http', '$location',
                         console.log('error');
                         return;
                     }
-                    $http.defaults.headers.common['Authentication'] = data.token;
-                    $location.path('/user_dashboard');
+                    $http.defaults.headers.common['Authentication'] = 'Base ' + data.token;
+                    $window.location = '/user_dashboard';
                 });
             }
         }]);

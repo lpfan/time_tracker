@@ -51,7 +51,7 @@ class User(db.Model):
             user = q.one()
             if bcrypt.check_password_hash(user.password, password):
                 token = generate_token(user.id)
-                return token
+                return user, token
             else:
                 raise errors.UserNotAuthorized(
                     username,
@@ -66,6 +66,9 @@ class User(db.Model):
     # Flask-Login interation
     def is_authenticated(self):
         return True
+
+    def is_active(self):
+        return self.is_active
 
     def is_anonymous(self):
         return False

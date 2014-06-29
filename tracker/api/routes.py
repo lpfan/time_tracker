@@ -5,3 +5,4 @@ from views.signin import SignInView
 
 tt_api.add_resource(RegisterView, '/api/register')
 tt_api.add_resource(SignInView, '/api/signin')
+#tt_api.add_resource(DashboardView, '/api/user_dashboard')
