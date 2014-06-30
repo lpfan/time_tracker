@@ -1,5 +1,77 @@
 {%extends "base.html"%}
 
 {%block content%}
+    <div class="row">
+        <div class="col-md-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Доступні дії</div>
+                    <div class="panel-body">
+                        <ul>
 
+                        </ul>
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-heading">In progress ...</div>
+                <div class="panel-body">
+                    Поки що Ви нічого не робите
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>
+                                Час, витрачений на щось корисне
+                            </td>
+                            <td>
+                                Безвідповідально згаяний час
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Поточні задачі</div>
+                    <div class="panel-body">
+                        Поточні задачі
+                    </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <td>Title</td>
+                                        <td>Description</td>
+                                        <td>Start Date</td>
+                                        <td>End Data</td>
+                                        <td>Duration</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Test</td>
+                                        <td>Test description</td>
+                                        <td>30.06.2014</td>
+                                        <td>1.07.2014</td>
+                                        <td>24h</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+            </div>
+            Added content here
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Коротка статистика</div>
+                    <div class="panel-body">
+                        Поточні задачі
+                    </div>
+            </div>
+        </div>
+    </div>
 {%endblock%}
