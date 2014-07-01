@@ -13,7 +13,8 @@
             </div>
         </div>
         <div class="col-md-7">
-            <div class="panel panel-default">
+            {%raw%}
+            <div class="panel panel-default" ng-controller="TimeMgmtCtrl">
                 <div class="panel-heading">In progress ...</div>
                 <div class="panel-body">
                     Поки що Ви нічого не робите
@@ -31,12 +32,16 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>0</td>
+                            <td>{{activeTime}}</td>
                             <td>0</td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="panel-body">
+                    <button class="btn" ng-click="startTimeTracking()" ng-model="isActive">Start</button>
+                </div>
             </div>
+            {%endraw%}
             <div class="panel panel-default">
                 <div class="panel-heading">Поточні задачі</div>
                     <div class="panel-body">

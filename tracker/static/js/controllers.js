@@ -1,6 +1,6 @@
 'use strict';
 
-var ttControllers = angular.module('ttControllers',[]);
+var ttControllers = angular.module('ttControllers',['LocalStorageModule']);
 
 ttControllers.controller('RegisterCtrl',['$scope', '$http', 
     function($scope, $http){
@@ -56,3 +56,24 @@ ttControllers.controller('SignInCtrl', ['$scope', '$http', '$window',
 ttControllers.controller('DashboardCtrl', ['$scope', function($scope){
 
 }]);
+
+
+ttControllers.controller('TimeMgmtCtrl', ['$scope', 'localStorageService',
+        function($scope, localStorageService){
+            
+            var taskToTrack = {
+                'start_time':0,
+                'end_time':0,
+                'date':''
+            }
+            
+            $scope.isActive = false;
+            
+            $scope.startTimeTracking = function(){
+                console.log('im going to start time tracking');
+                var time = new Date().getTime() / 1000;
+                taskToTrack.start_time = time;
+                return false;
+            }
+        }
+    ])
