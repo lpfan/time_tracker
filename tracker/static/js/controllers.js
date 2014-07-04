@@ -66,13 +66,24 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', 'localStorageService',
                 'end_time':0,
                 'date':''
             }
+
             
-            $scope.isActive = false;
-            
+            $scope.newTask = {}
+            $scope.isDisabled = false;
+
             $scope.startTimeTracking = function(){
-                console.log('im going to start time tracking');
-                var time = new Date().getTime() / 1000;
-                taskToTrack.start_time = time;
+                var time = new Date();
+                $scope.isDisabled = true;
+                $scope.newTask.start_time = time.getTime() / 1000;
+                console.log('And then sync it with mongoDb');
+                return false;
+            }
+
+            $scope.stopTimeTracking = function(){
+                var time = new Date();
+                $scope.newTask.end_time = time.getTime() / 1000;
+                console.log('And then sync it with mongoDb');
+                console.log('Total duration is ', $scope.newTask.end_time - $scope.newTask.start_time);
                 return false;
             }
         }
