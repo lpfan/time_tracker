@@ -57,9 +57,8 @@ ttControllers.controller('DashboardCtrl', ['$scope', function($scope){
 
 }]);
 
-
-ttControllers.controller('TimeMgmtCtrl', ['$scope', 'localStorageService',
-        function($scope, localStorageService){
+ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localStorageService',
+        function($scope, $http, $timeout, localStorageService){
             
             var taskToTrack = {
                 'start_time':0,
@@ -68,22 +67,40 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', 'localStorageService',
             }
 
             
-            $scope.newTask = {}
             $scope.isDisabled = false;
+            $scope.task = {};
+            $scope.useful_timer = 0;
+            $scope.useless_time = 0;
+            $scope.tickInterval = 1000;
 
-            $scope.startTimeTracking = function(){
-                var time = new Date();
+            var tick = function(){
+                $scope.useful_timer += 1;
+                $timeout(tick, $scope.tickInterval);
+            }
+
+
+            $scope.startTimeTracking = function(form){
+                var start_time = new Date().getTime()/1000;
                 $scope.isDisabled = true;
-                $scope.newTask.start_time = time.getTime() / 1000;
-                console.log('And then sync it with mongoDb');
+                $scope.task.start_time = start_time;
+                $http({
+                    method: 'POST',
+                    url: '/api/sync/start_task',
+                    data: JSON.stringify($scope.task),
+                    headers: {'Content-Type': 'application/json'}
+                }).
+                success(function(data, status, headers, config){
+                    console.log(data);
+                    $timeout(tick, $scope.tickInterval);
+                });
                 return false;
             }
 
             $scope.stopTimeTracking = function(){
                 var time = new Date();
-                $scope.newTask.end_time = time.getTime() / 1000;
+                $scope.task.end_time = time.getTime() / 1000;
                 console.log('And then sync it with mongoDb');
-                console.log('Total duration is ', $scope.newTask.end_time - $scope.newTask.start_time);
+                console.log('Total duration is ', $scope.task.end_time - $scope.task.start_time);
                 return false;
             }
         }

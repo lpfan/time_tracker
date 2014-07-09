@@ -17,18 +17,18 @@
             <div class="panel panel-default" ng-controller="TimeMgmtCtrl">
                 <div class="panel-heading">In progress ...</div>
                 <div class="panel-body">
-                    <div class="col-md-4">
-                        <form name="startNewTaskForm" class="form form-horizontal" role="form" novalidate>
-                            <div class="form-group">
+                    <div class="col-md-9">
+                        <form name="newTaskForm" class="form form-horizontal" role="form" novalidate>
+                            <div class="form-group form-group-lg">
                                 <label for="taskTitle" class="control-label">Title</label>
                                 <input class="form-control" id="taskTitle" ng-model="task.title" required />
                             </div>
                             <div class="form-group">
                                 <label for="taskDescription" class="control-label">Description</label>
-                                <textarea class="form-control" id="taskDescription" ng-model="task.description" required></textarea>
+                                <textarea class="form-control" id="taskDescription" ng-model="task.description" required rows="3"></textarea>
                             </div>
 
-                            <button ng-click="startTimeTracking()" ng-disabled="isDisabled" ng-model="isDisabled">
+                            <button ng-click="startTimeTracking(newTaskForm)" ng-disabled="isDisabled || newTaskForm.$invalid || isUnchanged(task)" ng-model="isDisabled">
                                 <span class="glyphicon glyphicon-play"></span>
                             </button>
                             <button ng-click="pauseTimeTracking()" ng-model="pauseIsActive">
@@ -39,8 +39,13 @@
                             </button>
                         </form>
                     </div>
-                    <div class="col-md-3">
-                        Time dashboard
+                    <div class="col-md-1">
+                        <p class="text-success">
+                            {{ useful_timer }}
+                        </p>
+                        <p class="text-danger">
+                            {{ useless_time }}
+                        </p>
                     </div>
                 </div>
             </div>
