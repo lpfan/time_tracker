@@ -83,6 +83,25 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
                 $scope.useless_timer = $timeout($scope.useless_tick, tickInterval);
             }
 
+            $scope.init = function(){
+                //console.log('init');
+                var c_date = new Date();
+                var s_date = new Date().setHours(10,0,0);
+                var seconds = (c_date - s_date)/1000;
+                console.log(seconds);
+                /*
+                 *
+                 * here should be initialization-call to API
+                 *
+                 */
+                if (seconds > 0){
+                    $scope.useless_time = seconds;
+                    var timer = $timeout($scope.useless_tick, tickInterval);
+                } else {
+                    $scope.useless_time = "У вас усе ще попереду";
+                }
+            }
+
             $scope.startTimeTracking = function(form){
                 var start_time = new Date().getTime()/1000;
                 $scope.isDisabled = true;
@@ -94,6 +113,7 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
                     headers: {'Content-Type': 'application/json'}
                 }).
                 success(function(data, status, headers, config){
+                    $timeout.cancel($scope.useless_timer);
                     var timer = $timeout($scope.usefull_tick, tickInterval);
                 });
                 return false;
