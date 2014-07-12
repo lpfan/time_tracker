@@ -69,15 +69,19 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
             
             $scope.isDisabled = false;
             $scope.task = {};
-            $scope.useful_timer = 0;
+            $scope.usefull_time = 0;
             $scope.useless_time = 0;
-            $scope.tickInterval = 1000;
+            var tickInterval = 1000;
 
-            var tick = function(){
-                $scope.useful_timer += 1;
-                $timeout(tick, $scope.tickInterval);
+            $scope.usefull_tick = function(){
+                $scope.usefull_time += 1;
+                $scope.usefull_timer = $timeout($scope.usefull_tick, tickInterval);
             }
 
+            $scope.useless_tick = function(){
+                $scope.useless_time += 1;
+                $scope.useless_timer = $timeout($scope.useless_tick, tickInterval);
+            }
 
             $scope.startTimeTracking = function(form){
                 var start_time = new Date().getTime()/1000;
@@ -90,8 +94,7 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
                     headers: {'Content-Type': 'application/json'}
                 }).
                 success(function(data, status, headers, config){
-                    console.log(data);
-                    $timeout(tick, $scope.tickInterval);
+                    var timer = $timeout($scope.usefull_tick, tickInterval);
                 });
                 return false;
             }
@@ -99,8 +102,8 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
             $scope.stopTimeTracking = function(){
                 var time = new Date();
                 $scope.task.end_time = time.getTime() / 1000;
-                console.log('And then sync it with mongoDb');
-                console.log('Total duration is ', $scope.task.end_time - $scope.task.start_time);
+                $timeout.cancel($scope.usefull_timer);
+                var timer = $timeout($scope.useless_tick, tickInterval);
                 return false;
             }
         }
