@@ -14,38 +14,48 @@
         </div>
         <div class="col-md-7">
             {%raw%}
-            <div class="panel panel-default" ng-controller="TimeMgmtCtrl" ng-init="init()">
-                <div class="panel-heading">In progress ...</div>
-                <div class="panel-body">
-                    <div class="col-md-9">
-                        <form name="newTaskForm" class="form form-horizontal" role="form" novalidate>
-                            <div class="form-group form-group-lg">
-                                <label for="taskTitle" class="control-label">Title</label>
-                                <input class="form-control" id="taskTitle" ng-model="task.title" required />
-                            </div>
-                            <div class="form-group">
-                                <label for="taskDescription" class="control-label">Description</label>
-                                <textarea class="form-control" id="taskDescription" ng-model="task.description" required rows="3"></textarea>
-                            </div>
-
-                            <button ng-click="startTimeTracking(newTaskForm)" ng-disabled="isDisabled || newTaskForm.$invalid || isUnchanged(task)" ng-model="isDisabled">
-                                <span class="glyphicon glyphicon-play"></span>
-                            </button>
-                            <button ng-click="pauseTimeTracking()" ng-model="pauseIsActive">
-                                <span class="glyphicon glyphicon-pause"></span>
-                            </button>
-                            <button ng-click="stopTimeTracking()" ng-model="stopIsActive">
-                                <span class="glyphicon glyphicon-stop"></span>
-                            </button>
-                        </form>
+            <div ng-controller="TimeMgmtCtrl" ng-init="init()">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Day Activity</div>
+                    <div class="panel-body">
+                        <div class="col-md-1">
+                            <p class="text-success">
+                                {{ format_time(total_usefull_time) }}
+                            </p>
+                            <p class="text-danger">
+                                {{ format_time(useless_time) }}
+                            </p>
+                        </div>
                     </div>
-                    <div class="col-md-1">
-                        <p class="text-success">
-                            {{ usefull_time }}
-                        </p>
-                        <p class="text-danger">
-                            {{ useless_time }}
-                        </p>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">In progress ...</div>
+                    <div class="panel-body">
+                        <div class="col-md-9">
+                            <form name="newTaskForm" class="form form-horizontal" role="form" novalidate>
+                                <div class="form-group form-group-lg">
+                                    <label for="taskTitle" class="control-label">Title</label>
+                                    <input class="form-control" id="taskTitle" ng-model="task.title" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="taskDescription" class="control-label">Description</label>
+                                    <textarea class="form-control" id="taskDescription" ng-model="task.description" required rows="3"></textarea>
+                                </div>
+
+                                <button ng-click="startTimeTracking(newTaskForm)" ng-disabled="isDisabled || newTaskForm.$invalid || isUnchanged(task)" ng-model="isDisabled">
+                                    <span class="glyphicon glyphicon-play"></span>
+                                </button>
+                                <button ng-click="pauseTimeTracking()" ng-model="pauseIsActive">
+                                    <span class="glyphicon glyphicon-pause"></span>
+                                </button>
+                                <button ng-click="stopTimeTracking()" ng-model="stopIsDisabled" ng-disabled="stopIsDisabled">
+                                    <span class="glyphicon glyphicon-stop"></span>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="md-col-1">
+                            {{ format_time(usefull_time) }}
+                        </div>
                     </div>
                 </div>
             </div>
