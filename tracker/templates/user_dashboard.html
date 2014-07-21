@@ -1,0 +1,100 @@
+{%extends "base.html"%}
+
+{%block content%}
+    <div class="row">
+        <div class="col-md-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Доступні дії</div>
+                    <div class="panel-body">
+                        <ul>
+
+                        </ul>
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            {%raw%}
+            <div ng-controller="TimeMgmtCtrl" ng-init="init()">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Day Activity</div>
+                    <div class="panel-body">
+                        <div class="col-md-1">
+                            <p class="text-success">
+                                {{ format_time(total_usefull_time) }}
+                            </p>
+                            <p class="text-danger">
+                                {{ format_time(useless_time) }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">In progress ...</div>
+                    <div class="panel-body">
+                        <div class="col-md-9">
+                            <form name="newTaskForm" class="form form-horizontal" role="form" novalidate>
+                                <div class="form-group form-group-lg">
+                                    <label for="taskTitle" class="control-label">Title</label>
+                                    <input class="form-control" id="taskTitle" ng-model="task.title" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="taskDescription" class="control-label">Description</label>
+                                    <textarea class="form-control" id="taskDescription" ng-model="task.description" required rows="3"></textarea>
+                                </div>
+
+                                <button ng-click="startTimeTracking(newTaskForm)" ng-disabled="isDisabled || newTaskForm.$invalid || isUnchanged(task)" ng-model="isDisabled">
+                                    <span class="glyphicon glyphicon-play"></span>
+                                </button>
+                                <button ng-click="pauseTimeTracking()" ng-model="pauseIsActive">
+                                    <span class="glyphicon glyphicon-pause"></span>
+                                </button>
+                                <button ng-click="stopTimeTracking()" ng-model="stopIsDisabled" ng-disabled="stopIsDisabled">
+                                    <span class="glyphicon glyphicon-stop"></span>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="md-col-1">
+                            {{ format_time(usefull_time) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endraw%}
+            <div class="panel panel-default">
+                <div class="panel-heading">Поточні задачі</div>
+                    <div class="panel-body">
+                        Поточні задачі
+                    </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <td>Title</td>
+                                        <td>Description</td>
+                                        <td>Start Date</td>
+                                        <td>End Data</td>
+                                        <td>Duration</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Test</td>
+                                        <td>Test description</td>
+                                        <td>30.06.2014</td>
+                                        <td>1.07.2014</td>
+                                        <td>24h</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+            </div>
+            Added content here
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Коротка статистика</div>
+                    <div class="panel-body">
+                        Поточні задачі
+                    </div>
+            </div>
+        </div>
+    </div>
+{%endblock%}

@@ -30,4 +30,19 @@ class RecordExists(TtBaseApiException):
         super(RecordExists, self).__init__(*args, **kwargs)
         self.reason = '%s with %s already exists in db' % (field, value,)
         self.field = field
-        self.msg = message
+
+
+class UserNotAuthorized(TtBaseApiException):
+
+    def __init__(self, username, message, *args, **kwargs):
+        super(UserNotAuthorized, self).__init__(*args, **kwargs)
+        self.reason = 'Wrong password for user with username %s' % username
+        self.field = username
+
+
+class UserNotFound(TtBaseApiException):
+
+    def __init__(self, username, message, *args, **kwargs):
+        super(UserNotFound, self).__init__(*args, **kwargs)
+        self.reason = 'User with username %s not found' % username
+        self.field = username

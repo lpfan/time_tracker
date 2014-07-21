@@ -1,23 +1,8 @@
-from flask.ext import restful
-from flask.ext.restful import reqparse
+from base import BaseResource
 
 from tracker.shared_lib.decorators import validate_input
 from tracker.models import User
 from tracker import bcrypt
-
-
-class BaseResource(restful.Resource):
-
-    def __init__(self, *args, **kwargs):
-        self._parser = None
-        super(BaseResource, self).__init__(*args, **kwargs)
-
-    @property
-    def rp(self):
-        if self._parser == None:
-            self._parser = reqparse.RequestParser()
-
-        return self._parser
 
 
 class RegisterView(BaseResource):
