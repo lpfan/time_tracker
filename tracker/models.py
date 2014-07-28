@@ -81,3 +81,16 @@ class User(db.Model):
 
     def __repr__(self):
         return "%s %s" % (self.id, self.username,)
+
+
+class Task(db.Model):
+
+    __tablename__ = 'tasks'
+
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date)
+    start_time = db.Column(db.TIMESTAMP)
+    end_time = db.Column(db.TIMESTAMP)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"))
+
+    user = db.relationship('User', backref = db.backref('tasks', lazy='dynamic'))
