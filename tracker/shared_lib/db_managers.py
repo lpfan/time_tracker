@@ -55,3 +55,34 @@ class UserManager(BaseManager):
     def save(self, *args, **kwargs):
         self.session.add(self.model)
         self.safe_execute()
+
+
+class TaskManager(BaseManager):
+
+    def __init__(self, model, *args, **kwargs):
+        super(TaskManager, self).__init__(*args, **kwargs)
+        self.model = model
+
+    def _create(self, **kwargs):
+        """Create new Task and fill it with passed values of it's properties.
+        """
+        for key, value in kwargs.iteritems():
+            if hasattr(self.model, key):
+                setattr(self.model, key, value)
+
+        self.session.add(self.model)
+        self.session.commit()
+        return self.model
+
+    def create(self, **kwargs):
+        """Trigger creater of new tags.
+        """
+        return self.safe_execute(self._create, **kwargs)
+
+    def get_by_uuid(self, uuid):
+        q = self.session.query(self.model.__class__).\
+            filter(self.model.__class__.uuid == uuid)
+        return q.one()
+
+    def save(self):
+        self.safe_execute()

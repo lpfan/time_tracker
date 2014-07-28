@@ -101,7 +101,7 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
                 var c_date = new Date();
                 var s_date = new Date().setHours(10,0,0);
                 var seconds = (c_date - s_date)/1000;
-                console.log(seconds);
+                $scope.stopIsDisabled = true;
                 /*
                  *
                  * here should be initialization-call to API
@@ -128,6 +128,7 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
                 success(function(data, status, headers, config){
                     $timeout.cancel($scope.useless_timer);
                     $scope.stopIsDisabled = false;
+                    $scope.task.uuid = data['uuid']
                     var timer = $timeout($scope.usefull_tick, tickInterval);
                 });
                 return false;
@@ -136,14 +137,22 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
             $scope.stopTimeTracking = function(){
                 var time = new Date();
                 $scope.task.end_time = time.getTime() / 1000;
-                $scope.stopIsDisabled = true;
-                $scope.isDisabled = false;
-                $scope.newTaskForm.$setPristine();
                 $timeout.cancel($scope.usefull_timer);
                 $scope.total_usefull_time += $scope.usefull_time;
                 $scope.usefull_time = 0;
-                $scope.task = {};
                 var timer = $timeout($scope.useless_tick, tickInterval);
+                $http({
+                    method: 'POST',
+                    url: '/api/sync/finish_task',
+                    data: JSON.stringify($scope.task),
+                    headers: {'Content-Type': 'application/json'}
+                }).
+                success(function(data, status, headers, config){
+                    $scope.stopIsDisabled = true;
+                    $scope.isDisabled = false;
+                    $scope.newTaskForm.$setPristine();
+                    $scope.task = {};
+                });
                 return false;
             }
         }

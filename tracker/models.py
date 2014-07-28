@@ -88,9 +88,19 @@ class Task(db.Model):
     __tablename__ = 'tasks'
 
     id = db.Column(db.Integer, primary_key=True)
+    uuid = db.Column(db.String(length=32), unique=True)
+    title = db.Column(db.String(length=200))
+    description = db.Column(db.Text())
     date = db.Column(db.Date)
     start_time = db.Column(db.TIMESTAMP)
     end_time = db.Column(db.TIMESTAMP)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"))
 
     user = db.relationship('User', backref = db.backref('tasks', lazy='dynamic'))
+
+    @property
+    def objects(self):
+        return db_managers.TaskManager(self)
+
+    def save(self):
+        self.objects.save()
