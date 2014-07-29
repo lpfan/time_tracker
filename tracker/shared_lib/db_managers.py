@@ -84,5 +84,11 @@ class TaskManager(BaseManager):
             filter(self.model.__class__.uuid == uuid)
         return q.one()
 
+    def get_tasks_by_date(self, date_str):
+        q = self.session.query(self.model.__class__).filter(
+            self.model.__class__.date == date_str
+        )
+        return q.all()
+
     def save(self):
         self.safe_execute()

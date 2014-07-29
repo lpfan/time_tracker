@@ -102,11 +102,16 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
                 var s_date = new Date().setHours(10,0,0);
                 var seconds = (c_date - s_date)/1000;
                 $scope.stopIsDisabled = true;
-                /*
-                 *
-                 * here should be initialization-call to API
-                 *
-                 */
+                var today_str = c_date.getFullYear()+'-'+ parseInt(c_date.getMonth()+1)+'-'+c_date.getDate();
+                $http({
+                    method: 'POST',
+                    url: '/api/sync/init',
+                    data: JSON.stringify({'today': today_str})
+                }).
+                success(function(data, status, headers, config){
+                    $scope.total_usefull_time = data['usefull_time'];
+                });
+
                 if (seconds > 0){
                     $scope.useless_time = seconds;
                     var timer = $timeout($scope.useless_tick, tickInterval);
@@ -137,6 +142,7 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
             $scope.stopTimeTracking = function(){
                 var time = new Date();
                 $scope.task.end_time = time.getTime() / 1000;
+                $scope.task.duration = $scope.usefull_time;
                 $timeout.cancel($scope.usefull_timer);
                 $scope.total_usefull_time += $scope.usefull_time;
                 $scope.usefull_time = 0;

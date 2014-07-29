@@ -94,6 +94,7 @@ class Task(db.Model):
     date = db.Column(db.Date)
     start_time = db.Column(db.TIMESTAMP)
     end_time = db.Column(db.TIMESTAMP)
+    duration = db.Column(db.Integer())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"))
 
     user = db.relationship('User', backref = db.backref('tasks', lazy='dynamic'))
