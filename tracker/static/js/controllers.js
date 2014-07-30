@@ -101,12 +101,17 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
                 var c_date = new Date();
                 var s_date = new Date().setHours(10,0,0);
                 var seconds = (c_date - s_date)/1000;
-                console.log(seconds);
-                /*
-                 *
-                 * here should be initialization-call to API
-                 *
-                 */
+                $scope.stopIsDisabled = true;
+                var today_str = c_date.getFullYear()+'-'+ parseInt(c_date.getMonth()+1)+'-'+c_date.getDate();
+                $http({
+                    method: 'POST',
+                    url: '/api/sync/init',
+                    data: JSON.stringify({'today': today_str})
+                }).
+                success(function(data, status, headers, config){
+                    $scope.total_usefull_time = data['usefull_time'];
+                });
+
                 if (seconds > 0){
                     $scope.useless_time = seconds;
                     var timer = $timeout($scope.useless_tick, tickInterval);
@@ -128,6 +133,7 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
                 success(function(data, status, headers, config){
                     $timeout.cancel($scope.useless_timer);
                     $scope.stopIsDisabled = false;
+                    $scope.task.uuid = data['uuid']
                     var timer = $timeout($scope.usefull_tick, tickInterval);
                 });
                 return false;
@@ -136,14 +142,23 @@ ttControllers.controller('TimeMgmtCtrl', ['$scope', '$http', '$timeout', 'localS
             $scope.stopTimeTracking = function(){
                 var time = new Date();
                 $scope.task.end_time = time.getTime() / 1000;
-                $scope.stopIsDisabled = true;
-                $scope.isDisabled = false;
-                $scope.newTaskForm.$setPristine();
+                $scope.task.duration = $scope.usefull_time;
                 $timeout.cancel($scope.usefull_timer);
                 $scope.total_usefull_time += $scope.usefull_time;
                 $scope.usefull_time = 0;
-                $scope.task = {};
                 var timer = $timeout($scope.useless_tick, tickInterval);
+                $http({
+                    method: 'POST',
+                    url: '/api/sync/finish_task',
+                    data: JSON.stringify($scope.task),
+                    headers: {'Content-Type': 'application/json'}
+                }).
+                success(function(data, status, headers, config){
+                    $scope.stopIsDisabled = true;
+                    $scope.isDisabled = false;
+                    $scope.newTaskForm.$setPristine();
+                    $scope.task = {};
+                });
                 return false;
             }
         }
